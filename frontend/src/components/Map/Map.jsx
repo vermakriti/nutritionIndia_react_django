@@ -90,19 +90,10 @@ export const Map = ({
     if (i === 0) {
       const values = generatedLabels[i].split(` ${labelDelimiter} `)
       return `Less than ${values[1]}`
-    } else if(i == 1)
+    } else if(i == 1 || i== 2 || i== 3)
     {
       const values = generatedLabels[i].split(` ${labelDelimiter} `)
       return `${values[0]} to  ${values[1] -0.1}`
-    }else if(i == 2)
-    {
-    const values = generatedLabels[i].split(` ${labelDelimiter} `)
-    return `${values[0]} to  ${values[1] -0.1}`
-    }
-    else if(i == 3)
-    {
-    const values = generatedLabels[i].split(` ${labelDelimiter} `)
-    return `${values[0]} to  ${values[1] -0.1}`
     }
     else if (i === genLength -1) {
       const values = generatedLabels[i].split(` ${labelDelimiter} `)
@@ -153,7 +144,7 @@ export const Map = ({
 
       if (selTimeperiod === 22){    // change state boundaries when timeperiod is NFHS5
         geometry = boundaries.new_state;
-        warning=""
+        warning="Administrative Boundaries as per NFHS5(2019-20)"
       }   
       else{
         geometry = boundaries.state;
@@ -166,7 +157,7 @@ export const Map = ({
 
         if(selTimeperiod === 22){
           geometry = boundaries.new_dist;
-          warning=""
+          warning="Administrative Boundaries as per NFHS5(2019-20)"
 
         }
         else{
@@ -176,14 +167,14 @@ export const Map = ({
         }
       data = selDistrictsData;
     }
-    statusMsg ="Click on Map to Drill down to District level";
+    statusMsg ="Click on map to drill down to district level";
   }
   else{
     
     if(null!== selStateData && selStateData.length > 0)
     {
       data = selStateData;
-      statusMsg ="Click on Map to go back to India Map";
+      statusMsg ="Click on map to go back to India level";
     if(selTimeperiod == 22)
     {
       let features = boundaries.new_dist.features.filter(feature => feature.properties.NAME2_ === areaName); 
@@ -321,16 +312,25 @@ export const Map = ({
     
     let colorScale;
   
-    let colorScale2 = scaleThreshold().domain([low, medium, high, highest])
-    .range(["#00af50", "#ffff00", "#ffc000", "#fe0000", '#8e0000']); 
+    let colorScale2;
+
+    if(indicatorSense == 'Positive')
+    {
+    colorScale2 = scaleThreshold().domain([low, medium, high, highest])
+    .range(["#8e0000", "#fe0000", "#ffc000", "#ffff00", "#00af50"]); 
+    }
+    else{
+      colorScale2 = scaleThreshold().domain([low, medium, high, highest])
+    .range(["#00af50", "#ffff00", "#ffc000", "#fe0000", "#8e0000"]); 
+    }
 
     let colorScale4 = scaleQuantize()
       .domain([min, max])
-      .range(["#DAF7A6", "#FFE338", "#FF0000", "#B2022F"])
+      .range(["#00af50", "#ffff00", "#ffc000", "#fe0000", "#8e0000"])
 
     let colorScale4_p = scaleQuantize()
       .domain([min, max])
-      .range(["#B2022F", "#FF0000", "#FFE338", "#DAF7A6"])
+      .range(["#8e0000", "#fe0000", "#ffc000", "#ffff00", "#00af50"])
 
       let arrsuw = [19,21,17,18,12,13,71,124,20,108,107,89,31,11,28,6,7,37,51,42,84];
       if (arrsuw.includes(selIndicator)) {
@@ -542,17 +542,9 @@ export const Map = ({
     // legend.selectAll("*").remove();
     legend.append("g")
       .attr("class", "legendQuant")
-        .attr("transform", `translate(${width-150},${height-80})`)
+        .attr("transform", `translate(${width-150},${height-100})`)
 
-    let formatter;
-    if (toggleStateBurden === true) {
-      //formatter = format(',.0f');
-      formatter = format('.2s');
-    }
-    else {
-      formatter = format(".1f");
-    }
-
+    let formatter = format(".1f");
     let myLegend;
    
     if (toggleStateBurden === false) 
@@ -640,10 +632,8 @@ export const Map = ({
         
       </div>
       
-      {/* <div className="map_req_legend">
-      </div> */}
       <div className="map_req_text">
-          <div id="info-msg" className="msg"></div>
+          <div id="info-msg" className="msg">{statusMsg}</div>
       </div>
     </div>
   </div>
