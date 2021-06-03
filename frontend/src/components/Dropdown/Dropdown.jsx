@@ -15,6 +15,13 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Switch } from 'antd';
 import {BarArea} from "../../components/Bar/BarArea";
 import {Bar} from "../../components/Bar/Bar";
+import {
+  Grid,
+  Paper,
+  Container,
+  Box,
+  Card
+} from '@material-ui/core';
 
 const {Search} = Input;
 export const Dropdown = ({}) =>{
@@ -551,234 +558,219 @@ useEffect(() => {
       if (burdenIndicators.includes(selIndicator)) {
           burdenDropdown =    
             <Col>
-
-            <span className="dropdown-title">Prevalence/Burden</span>
-            <TreeSelect showSearch
-              optionFilterProp="children"
-              className='dropdown'
-              virtual={false}
-              style={{ width: '100%' }}
-              value={selBurden}
-              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-              treeData={[{"value":"1","title":"Prevalence"},{"value":"2","title":"Burden"}]}
-              filterTreeNode
-              treeNodeFilterProp ='title'
-              onChange = {burdenChange}
-            />
+              <span className="dropdown-title">Prevalence/Burden</span>
+              <TreeSelect showSearch
+                optionFilterProp="children"
+                className='dropdown'
+                virtual={false}
+                style={{ width: '100%' }}
+                value={selBurden}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={[{"value":"1","title":"Prevalence"},{"value":"2","title":"Burden"}]}
+                filterTreeNode
+                treeNodeFilterProp ='title'
+                onChange = {burdenChange}
+              />
             </Col>
         }
         else{
           burdenDropdown= null;
         }
-    
-
     return (
-      <>
-      <Row className=' mt-3 mb-3'>
-      <Col>
-
-      <span className="dropdown-title">Lifecycle</span>
-
-        <TreeSelect
-            showSearch
-            // onSearch={onSearch}
-            optionFilterProp="children"
-            className='dropdown'
-            virtual={false}
-            style={{ width: '100%' }}
-            value={selLifeycle}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={lifecycledDropdownOpt}
-            filterTreeNode
-            treeNodeFilterProp ='title'
-            onChange={ lifecycleChange }
-            />
-        </Col>
-        <Col>
-        <span className="dropdown-title">Category</span>
-
-        <TreeSelect
-            showSearch
-            // onSearch={onSearch}
-            optionFilterProp="children"
-            className='dropdown'
-            virtual={false}
-            style={{ width: '100%' }}
-            value={selCategory}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={categorydDropdownOpt}
-            filterTreeNode
-            treeNodeFilterProp ='title'
-            onChange={ categoryChange }
-            />
-        </Col>
-        <Col>
-
-            <span className="dropdown-title">Select Area</span>
-            {/* <Search style={{ marginBottom: 8 }} placeholder="Search" onChange={onChange}  ref={searchRef}/> */}
-
-            <TreeSelect
-                showSearch
-                // filterTreeNode={filterTree}
-                className='dropdown'
-                virtual={false}
-                style={{ width: '100%' }}
-                value={selArea}
-                onFocus={()=>setOpenDropdown(true)}
-                onBlur={() => setOpenDropdown(false)}
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                treeData={(filterDropdownValue.length !==0)?filterDropdownValue:areaDropdownOpt}
-                treeDefaultExpandAll={false}
-                ref = {treeRef}
-                open={openDropdown}
-                treeNodeFilterProp ='title'
-                onChange={areaChange}
-              />
-            </Col>
-
-            <Col>
-            <span className="dropdown-title">Select Indicator</span>
-
-            <TreeSelect
-                showSearch
-                // onSearch={onSearch}
-                optionFilterProp="children"
-                className='dropdown'
-                virtual={false}
-                style={{ width: '100%' }}
-                value={selIndicator}
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                treeData={indicatorDropdownOpt}
-                filterTreeNode
-                treeNodeFilterProp ='title'
-                onChange={ indicatorChange }
-                />
-            </Col>
-            
-            {burdenDropdown}
-
-        
+     
+        <Grid  lg={12} item container spacing={2} >
+          <Grid lg={12} sm={6}>
+            <Row className=' mt-3 mb-3'>
               <Col>
-            <span className="dropdown-title"> Select timeperiod</span>
-
+                <span className="dropdown-title">Lifecycle</span>
                 <TreeSelect
-                showSearch
-                className='dropdown'
-                virtual={false}
-                style={{ width: '100%' }}
-                value={selTimeperiod}
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                treeData={timeperiodDropdownOpt}
-               // onChange={value => setSelTimeperiod(value) }
-               treeNodeFilterProp ='title'
-               onChange={timeperiodChange}
+                  showSearch
+                  // onSearch={onSearch}
+                  optionFilterProp="children"
+                  className='dropdown'
+                  virtual={false}
+                  style={{ width: '100%' }}
+                  value={selLifeycle}
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  treeData={lifecycledDropdownOpt}
+                  filterTreeNode
+                  treeNodeFilterProp ='title'
+                  onChange={ lifecycleChange }
                 />
               </Col>
-
-    </Row>
-    {/* {isSelected?
-    <div className="btn_toggle text-center">
-      {burdenButton}
-      </div>: null} */}
-  
- 
-    
-    {/* <div className="layout__body__left">
-            <div className="layout__body__left__cards">
-            {isSelected? <Cards indicatorDetail = {indicatorDetail} indicatorChange = {indicatorChange}/> : null}
-            </div>
-    </div> */}
-<div className="layout" id="layoutid">
-  <div className="layout_left">
-  <div className="layout_left_trend" >
-      {isSelected?
-      <Trend indicatorTrend = {indicatorTrend}
-      graphTitle = {graphTitle}
-      graphSubgroup = {graphSubgroup}
-      graphUnit = {graphUnit}
-      titleAreaName = {titleAreaName}
-      graphTimeperiod = {graphTimeperiod}
-      toggleStateBurden = {toggleStateBurden}
-      trend = {trend}
-      selIndicator={selIndicator}
-      />: null}
-      </div>
-
-    
-     <div className="layout_left_bar1">
-     {isSelected? <BarArea
-      indicatorTrend = {indicatorTrend}
-      graphTitle = {graphTitle}
-      graphTimeperiod = {graphTimeperiod}
-      graphUnit = {graphUnit}
-      selIndiaData={selIndiaData} 
-      level={level} 
-      selArea={selArea} 
-      titleAreaName = {titleAreaName}
-      areaName = {areaName}
-      selStateData = {selStateData}
-      toggleStateBurden = {toggleStateBurden}
-      selIndicator={selIndicator}/>: null}
-     </div>
-   </div>
-    <div className="layout_right">
-    <div className="layout_right_map">
-        {isSelected? <Map boundaries={boundaries} 
-          selIndiaData={selIndiaData} 
-          setSelIndiaData ={setSelIndiaData}
-          setLevel={setLevel} 
-          level={level} 
-          setSelArea={setSelArea} 
-          unit={unit} 
-          unitName={graphUnit} 
-          selArea={selArea} 
-          searchRef={searchRef} 
-          setFilterDropdownValue={setFilterDropdownValue} 
-          areaDropdownOpt={areaDropdownOpt} 
-          selIndicator={selIndicator}
-          indicatorSense={indicatorSense} 
-          isLevelThree = {isLevelThree}
-          switchDisplay = {switchDisplay}
-          setSwitchDisplay = {setSwitchDisplay}
-          selTimeperiod = {selTimeperiod}
-          parentArea = {parentArea}
-          toggleState = {toggleState}
-          setToggleState = {setToggleState}
-          setIsLevelThree = {setIsLevelThree}
-          buttonText = {buttonText}
-          changeText = {changeText}
-          selStateData = {selStateData}
-          setSelStateData = {setSelStateData}
-          selDistrictsData = {selDistrictsData}
-          areaChange = {areaChange}
-          graphTitle = {graphTitle}
-          graphTimeperiod = {graphTimeperiod}
-          graphUnit = {graphUnit}
-          areaName = {areaName}
-          titleAreaName = {titleAreaName}
-
-          toggleStateBurden={toggleStateBurden}
-          setToggleStateBurden={setToggleStateBurden}
-          burdenbuttonText={burdenbuttonText} 
-          changeBurdenText={changeBurdenText}
-          map={map}
-          /> : null}
-      </div>
-     <div className="layout_right_bar2">
-      {isSelected? <Bar indicatorBar = {indicatorBar}
-      setIndicatorBar = {setIndicatorBar}
-      selIndicator = {selIndicator}
-      selTimeperiod = {selTimeperiod}
-      selArea = {selArea}
-      graphTimeperiod={graphTimeperiod}
-      graphTitle = {graphTitle}
-      graphUnit = {graphUnit}
-      titleAreaName = {titleAreaName}
-      toggleStateBurden = {toggleStateBurden}
-      selIndicator={selIndicator}/>: null}
-     </div>
-    </div>
-  </div>   
-   </>
+              <Col>
+                <span className="dropdown-title">Category</span>
+                <TreeSelect
+                  showSearch
+                  // onSearch={onSearch}
+                  optionFilterProp="children"
+                  className='dropdown'
+                  virtual={false}
+                  style={{ width: '100%' }}
+                  value={selCategory}
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  treeData={categorydDropdownOpt}
+                  filterTreeNode
+                  treeNodeFilterProp ='title'
+                  onChange={ categoryChange }
+                />
+              </Col>
+              <Col>
+                <span className="dropdown-title">Select Area</span>
+                {/* <Search style={{ marginBottom: 8 }} placeholder="Search" onChange={onChange}  ref={searchRef}/> */}
+                <TreeSelect
+                  showSearch
+                  // filterTreeNode={filterTree}
+                  className='dropdown'
+                  virtual={false}
+                  style={{ width: '100%' }}
+                  value={selArea}
+                  onFocus={()=>setOpenDropdown(true)}
+                  onBlur={() => setOpenDropdown(false)}
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  treeData={(filterDropdownValue.length !==0)?filterDropdownValue:areaDropdownOpt}
+                  treeDefaultExpandAll={false}
+                  ref = {treeRef}
+                  open={openDropdown}
+                  treeNodeFilterProp ='title'
+                  onChange={areaChange}
+                />
+              </Col>
+              <Col>
+                <span className="dropdown-title">Select Indicator</span>
+                <TreeSelect
+                  showSearch
+                  // onSearch={onSearch}
+                  optionFilterProp="children"
+                  className='dropdown'
+                  virtual={false}
+                  style={{ width: '100%' }}
+                  value={selIndicator}
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  treeData={indicatorDropdownOpt}
+                  filterTreeNode
+                  treeNodeFilterProp ='title'
+                  onChange={ indicatorChange }
+                />
+              </Col>
+              {burdenDropdown}
+              <Col>
+                <span className="dropdown-title"> Select timeperiod</span>
+                <TreeSelect
+                  showSearch
+                  className='dropdown'
+                  virtual={false}
+                  style={{ width: '100%' }}
+                  value={selTimeperiod}
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  treeData={timeperiodDropdownOpt}
+                  // onChange={value => setSelTimeperiod(value) }
+                  treeNodeFilterProp ='title'
+                  onChange={timeperiodChange}
+                />
+              </Col>
+            </Row>
+          </Grid>
+          {/* <Grid lg={12} item container spacing={1}> */}
+            <Grid item lg={6} xs={12} sm={6}  zeroMinWidth>
+              {/* <Paper > */}
+                {isSelected?
+                <Trend indicatorTrend = {indicatorTrend}
+                  graphTitle = {graphTitle}
+                  graphSubgroup = {graphSubgroup}
+                  graphUnit = {graphUnit}
+                  titleAreaName = {titleAreaName}
+                  graphTimeperiod = {graphTimeperiod}
+                  toggleStateBurden = {toggleStateBurden}
+                  trend = {trend}
+                  selIndicator={selIndicator}
+                />: null}
+              {/* </Paper> */}
+            </Grid>
+            <Grid item lg={6} xs={12} sm={6}>
+              {/* <Paper style={{width:"500px",}}> */}
+                {isSelected? 
+                <Map 
+                  boundaries={boundaries} 
+                  selIndiaData={selIndiaData} 
+                  setSelIndiaData ={setSelIndiaData}
+                  setLevel={setLevel} 
+                  level={level} 
+                  setSelArea={setSelArea} 
+                  unit={unit} 
+                  unitName={graphUnit} 
+                  selArea={selArea} 
+                  searchRef={searchRef} 
+                  setFilterDropdownValue={setFilterDropdownValue} 
+                  areaDropdownOpt={areaDropdownOpt} 
+                  selIndicator={selIndicator}
+                  indicatorSense={indicatorSense} 
+                  isLevelThree = {isLevelThree}
+                  switchDisplay = {switchDisplay}
+                  setSwitchDisplay = {setSwitchDisplay}
+                  selTimeperiod = {selTimeperiod}
+                  parentArea = {parentArea}
+                  toggleState = {toggleState}
+                  setToggleState = {setToggleState}
+                  setIsLevelThree = {setIsLevelThree}
+                  buttonText = {buttonText}
+                  changeText = {changeText}
+                  selStateData = {selStateData}
+                  setSelStateData = {setSelStateData}
+                  selDistrictsData = {selDistrictsData}
+                  areaChange = {areaChange}
+                  graphTitle = {graphTitle}
+                  graphTimeperiod = {graphTimeperiod}
+                  graphUnit = {graphUnit}
+                  areaName = {areaName}
+                  titleAreaName = {titleAreaName}
+                  toggleStateBurden={toggleStateBurden}
+                  setToggleStateBurden={setToggleStateBurden}
+                  burdenbuttonText={burdenbuttonText} 
+                  changeBurdenText={changeBurdenText}
+                  map={map}
+                /> : null}
+              {/* </Paper> */}
+            </Grid>
+          {/* </Grid> */}
+          {/* <Grid lg={12} item container spacing={1}> */}
+            <Grid item lg={6} xs={12} sm={6}>
+              {/* <Paper style={{width:"500px",}}> */}
+              {isSelected? 
+              <BarArea  sx={{ height: '100%' }} 
+                graphTitle = {graphTitle}
+                graphTimeperiod = {graphTimeperiod}
+                graphUnit = {graphUnit}
+                selIndiaData={selIndiaData} 
+                level={level} 
+                selArea={selArea} 
+                titleAreaName = {titleAreaName}
+                areaName = {areaName}
+                selStateData = {selStateData}
+                toggleStateBurden = {toggleStateBurden}
+                selIndicator={selIndicator}
+              />: null}
+              {/* </Paper> */}
+            </Grid>
+            <Grid item lg={6} xs={12} sm={6}>
+              {/* <Paper style={{width:"500px",}}> */}
+              {isSelected? 
+              <Bar 
+                indicatorBar = {indicatorBar}
+                setIndicatorBar = {setIndicatorBar}
+                selIndicator = {selIndicator}
+                selTimeperiod = {selTimeperiod}
+                selArea = {selArea}
+                graphTimeperiod={graphTimeperiod}
+                graphTitle = {graphTitle}
+                graphUnit = {graphUnit}
+                titleAreaName = {titleAreaName}
+                toggleStateBurden = {toggleStateBurden}
+                selIndicator={selIndicator}
+              />: null}
+              {/* </Paper> */}
+            </Grid>
+          {/* </Grid>   */}
+        </Grid>
     )
 }

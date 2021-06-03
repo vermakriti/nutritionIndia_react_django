@@ -1,11 +1,15 @@
-import React, { useRef,useContext } from 'react';
+import React, { useRef} from 'react';
+import {
+    Card,
+    CardContent,
+    Grid,
+  
+} from '@material-ui/core';
 import BarAreaComponent from './BarAreaComponent';
 import SideNavSecond from "../SideNav/SideNavSecond";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import "chartjs-plugin-datalabels";
 
-
-export const BarArea = ({indicatorTrend,graphTitle,graphTimeperiod, graphUnit,selIndiaData,level,selArea,titleAreaName, areaName,selStateData, toggleStateBurden, selIndicator}) => {
+export const BarArea = ({graphTitle,graphTimeperiod, graphUnit,selIndiaData,level,selArea,titleAreaName, areaName,selStateData, toggleStateBurden, selIndicator}) => {
 
     const componentRef = useRef();
     const screen=useFullScreenHandle();
@@ -40,7 +44,6 @@ export const BarArea = ({indicatorTrend,graphTitle,graphTimeperiod, graphUnit,se
       colorScale = '#b71c1c'; 
     else
       colorScale = '#eda143'; 
-
 
     // remove last word  graph title i.e olds
     var lastIndex = graphTitle.lastIndexOf(" ");
@@ -132,9 +135,9 @@ export const BarArea = ({indicatorTrend,graphTitle,graphTimeperiod, graphUnit,se
     for(var i=0;i<sortedBarData.length;i++){
         differenceData[i]=sortedBarData[0]-sortedBarData[i];
     } 
+
     datasets=[
         {
-            // label: [graphTitle, barGUnit, graphTimeperiod],
             label :'',
             data:sortedBarData,
             yAxisID:'yAxis1',
@@ -151,7 +154,6 @@ export const BarArea = ({indicatorTrend,graphTitle,graphTimeperiod, graphUnit,se
             showTooltips:'false'
         }
     ]
-
     // graph time period 
     let chartTitle = graphTimeperiod.split(" ")[0];
     let lastChar = chartTitle.slice(-1);
@@ -161,10 +163,12 @@ export const BarArea = ({indicatorTrend,graphTitle,graphTimeperiod, graphUnit,se
     }
 
     data = {
+        
         labels:sortedBarLabel,
         datasets: datasets,
     }    
     options = {
+        
         tooltips:{
             filter: function (tooltipItem) {
                 return tooltipItem.datasetIndex === 0;
@@ -218,12 +222,13 @@ export const BarArea = ({indicatorTrend,graphTitle,graphTimeperiod, graphUnit,se
     }
     // title of table
     title=graphTitle +', '+barGUnit; 
+
     return (
-        <div>
+        <Grid >
             <FullScreen  className="fullscreen_css" handle={screen}>
                 <SideNavSecond table={table} id="BarArea" screen={screen} title={title} timePeriod={graphTimeperiod} componentRef={componentRef} />
                 <BarAreaComponent ref={componentRef} id="BarArea" data={data} options={options} />
             </FullScreen>    
-        </div>
+        </Grid>
     );
 };
