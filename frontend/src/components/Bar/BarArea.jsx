@@ -139,15 +139,8 @@ export const BarArea = ({graphTitle,graphTimeperiod, graphUnit,selIndiaData,leve
             backgroundColor:colorScale,
             borderColor: colorScale,
             borderWidth: 1
-        },
-        {
-            data:differenceData,
-            yAxisID:'yAxis1',
-            backgroundColor:"#DEDEDE",
-            borderColor: "#DEDEDE",
-            borderWidth: 1,
-            showTooltips:'false'
         }
+       
     ]
     // graph time period 
     let chartTitle = graphTimeperiod.split(" ")[0];
