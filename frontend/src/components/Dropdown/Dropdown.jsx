@@ -574,8 +574,8 @@ useEffect(() => {
           burdenDropdown= null;
         }
     return (
-     
-        <Grid  lg={12} item container spacing={2} >
+      <Box  p={2} lg={12}>
+        <Grid  lg={12} item container spacing={2} padding={2}>
           <Grid lg={12} sm={6}>
             <Row className=' mt-3 mb-3'>
               <Col>
@@ -769,5 +769,6 @@ useEffect(() => {
             </Grid>
           {/* </Grid>   */}
         </Grid>
+      </Box>  
     )
 }

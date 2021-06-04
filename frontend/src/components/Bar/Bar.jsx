@@ -1,12 +1,11 @@
 import React, { useRef } from 'react';
-import {
-    Grid,
-} from '@material-ui/core';
+import {Card,CardContent} from '@material-ui/core';
 import BarComponent from './BarComponent';
 import SideNavSecond from "../SideNav/SideNavSecond";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 export const Bar = ({indicatorBar, graphTitle,graphTimeperiod, graphUnit, titleAreaName, toggleStateBurden, selIndicator})=>{
+
     const componentRef = useRef();
     const screen=useFullScreenHandle();
     
@@ -175,16 +174,17 @@ export const Bar = ({indicatorBar, graphTitle,graphTimeperiod, graphUnit, titleA
                     }]
                 }
             }
-        }
-        
+        } 
     }
-   
+    
     return(
-        <Grid item lg={12} xs={12}>
-            <FullScreen  className="fullscreen_css" handle={screen}>
-                <SideNavSecond table={table} id="Bar" screen={screen} title={title} timePeriod={graphTimeperiod} componentRef={componentRef} />
-                <BarComponent ref={componentRef} id="Bar" data={data} options={options}/>
-            </FullScreen>
-        </Grid>
+        <Card sx={{ height: '100%' }}>
+            <CardContent>
+                <FullScreen  className="fullscreen_css" handle={screen}>
+                    <SideNavSecond table={table} id="Bar" screen={screen} title={title} timePeriod={graphTimeperiod} componentRef={componentRef} />
+                    <BarComponent ref={componentRef} id="Bar" data={data} options={options}/>
+                </FullScreen>
+            </CardContent>
+        </Card>
     );
 };

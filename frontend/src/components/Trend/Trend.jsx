@@ -1,8 +1,7 @@
 import React, { useState, useEffect,useRef } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import {Card,CardContent} from '@material-ui/core';
 import SideNavFirst from "../SideNav/SideNavFirst";
-import {Grid,Card} from '@material-ui/core';
-
 import "./Trend.css";
 import {
   scaleLinear,
@@ -309,15 +308,17 @@ export const Trend = ({indicatorTrend, graphTitle, graphSubgroup, graphUnit, tit
 
 
   return (
-    <Card>
-    <FullScreen  className="fullscreen_css" handle={screen}  onChange={checkchange}>
-      <SideNavFirst table={table} id="svgTrend" dataField="timeperiod" columnName="Time Period"  screen={screen} title={title}  componentRef={svgRef}/>
-      <Grid className="trend">
-        <Grid className="trend_svg" ref={trendWrapper}>
-          <svg id="svgTrend" width="100%" height="130%" ref = {svgRef}></svg>
-        </Grid>
-      </Grid>
-    </FullScreen>
+    <Card sx={{ height: '100%' }}>
+      <CardContent>
+        <FullScreen  className="fullscreen_css" handle={screen}  onChange={checkchange}>
+          <SideNavFirst table={table} id="svgTrend" dataField="timeperiod" columnName="Time Period"  screen={screen} title={title}  componentRef={svgRef}/>
+          <div className="trend">
+            <div className="trend_svg" ref={trendWrapper}>
+              <svg id="svgTrend" width="100%" height="130%" ref = {svgRef}></svg>
+            </div>
+          </div>
+        </FullScreen>
+      </CardContent>
     </Card>
   );
 }

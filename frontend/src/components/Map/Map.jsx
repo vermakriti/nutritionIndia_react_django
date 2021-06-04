@@ -15,6 +15,7 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { AnimateOnChange } from 'react-animation';
 import { json } from 'd3';
 import "./Map.css";
+import {Card,CardContent} from '@material-ui/core';
 
 
 
@@ -611,34 +612,31 @@ export const Map = ({
   }
 
   return (
-    <>
-      <FullScreen className="fullscreen_css" handle={screen} onChange={checkchange}>
-      <SideNavFirst table={table} id="svgMap" dataField="area" columnName="Area" screen={screen} title={mapTitle} timePeriod={graphTimeperiod} componentRef={svgRef}/>
-      <div className="map">
-        {/* <div className="map_area"> */}
-          {/* <div className="map_title">
-            <small style={{textAlign:'center',fontWeight:"bold",fontSize:"13px"}}>{mapTitle}</small>
-          </div> */}
-          <div  className="map_svg" ref={wrapperRef}>
-            <svg  id="svgMap" width="100%" height="130%"  ref={svgRef} ></svg>
-
-            {/* <svg  width="100%" height="30%"  ref={svgLegRef}></svg> */}
+    <Card sx={{ height: '100%'}}>
+      <CardContent >
+        <FullScreen className="fullscreen_css" handle={screen} onChange={checkchange}>
+          <SideNavFirst table={table} id="svgMap" dataField="area" columnName="Area" screen={screen} title={mapTitle} timePeriod={graphTimeperiod} componentRef={svgRef}/>
+          <div className="map">
+            {/* <div className="map_area"> */}
+              {/* <div className="map_title">
+                <small style={{textAlign:'center',fontWeight:"bold",fontSize:"13px"}}>{mapTitle}</small>
+              </div> */}
+              <div  className="map_svg" ref={wrapperRef}>
+                <svg  id="svgMap" width="100%" height="130%"  ref={svgRef} ></svg>
+                {/* <svg  width="100%" height="30%"  ref={svgLegRef}></svg> */}
+              </div>
+            {/* </div> */}
+            <div className="map_req">
+              <div className="map_req_button">
+                {switchButton}
+              </div>
+              <div className="map_req_text">
+                <div id="info-msg" className="msg">{statusMsg}</div>
+              </div>
+            </div>
           </div>
-        {/* </div> */}
-    
-    <div className="map_req">
-      <div className="map_req_button">
-        {switchButton}
-        
-      </div>
-      
-      <div className="map_req_text">
-          <div id="info-msg" className="msg">{statusMsg}</div>
-      </div>
-    </div>
-  </div>
-
-    </FullScreen>  
-    </>
+        </FullScreen>  
+      </CardContent>
+    </Card>
   )
 };    
