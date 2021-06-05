@@ -143,6 +143,7 @@ export const BarArea = ({graphTitle,graphTimeperiod, graphUnit,selIndiaData,leve
         datasets: datasets,
     }    
     options = {
+        maintainAspectRatio:false,
         tooltips:{
             displayColors:false,
             bodyAlign:"center",
@@ -199,11 +200,13 @@ export const BarArea = ({graphTitle,graphTimeperiod, graphUnit,selIndiaData,leve
     }
     // title of table
     title=graphTitle +', '+barGUnit; 
+    // height of bar
+    let calculatedHeight = sortedBarLabel.length*13 +(sortedBarLabel.length)*2;
     return (
         <div>
             <FullScreen  className="fullscreen_css" handle={screen}>
                 <SideNavSecond table={table} id="BarArea" screen={screen} title={title} timePeriod={graphTimeperiod} componentRef={componentRef} />
-                <BarAreaComponent ref={componentRef} id="BarArea" data={data} options={options} />
+                <BarAreaComponent ref={componentRef} id="BarArea" height={calculatedHeight} data={data} options={options} />
             </FullScreen>    
         </div>
     );
