@@ -96,6 +96,7 @@ export const Trend = ({indicatorTrend, graphTitle, graphSubgroup, graphUnit, tit
       return a.start_date - b.start_date;
     });
     setData(cleanData);
+    // eslint-disable-next-line
   }, []);
   if(!toggleStateBurden && data)
     data = data.filter(d => typeof d.data_value_num != 'undefined')
@@ -169,6 +170,7 @@ export const Trend = ({indicatorTrend, graphTitle, graphSubgroup, graphUnit, tit
       const xValue = d => d.middle_date;
       let maxVal;
       if(toggleStateBurden){
+        // eslint-disable-next-line
         yValue = d => d.data_value;
         maxVal = max(data, (d) => yValue(d));
         maxVal = maxVal + maxVal/7;
@@ -179,6 +181,7 @@ export const Trend = ({indicatorTrend, graphTitle, graphSubgroup, graphUnit, tit
       maxVal = max(data, (d) => yValue(d));
       maxVal = maxVal + maxVal/7;
       margin = {...margin, 'left':100}
+      // eslint-disable-next-line
       graphUnit ='Number';
       }
 
@@ -207,7 +210,7 @@ export const Trend = ({indicatorTrend, graphTitle, graphSubgroup, graphUnit, tit
         }).tickSizeOuter(0))
         .style('font-size',11);
 			
-      let xaxis = bar.append("g")
+      bar.append("g")
         .attr("transform",`translate(0, ${innerHeight})`)
       	.attr("class","axis")
         .call(axisBottom(xScale).tickFormat(tick => formatTime(tick)).tickSizeOuter(0)).selectAll("text")
