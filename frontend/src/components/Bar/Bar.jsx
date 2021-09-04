@@ -85,6 +85,7 @@ export const Bar = ({indicatorBar, graphTitle,graphTimeperiod, graphUnit,titleAr
       return d;
     }).filter(d => listofSubgroup.includes(d.subgroup_name))
     setData(cleanData);
+    // eslint-disable-next-line
   }, []);
 
   
@@ -142,6 +143,7 @@ export const Bar = ({indicatorBar, graphTitle,graphTimeperiod, graphUnit,titleAr
       else{
         xValue = d => d.data_value_num;
         maxVal = max(data, (d) => xValue(d));
+        // eslint-disable-next-line
         graphUnit ='Number';
       }
 
@@ -261,7 +263,7 @@ export const Bar = ({indicatorBar, graphTitle,graphTimeperiod, graphUnit,titleAr
       }
     }
   }
-
+  console.log(data);
   const reportChange = (state, handle) => {
     setFullscreen(state);
     if(state === true){

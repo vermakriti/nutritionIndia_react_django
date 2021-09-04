@@ -6,6 +6,10 @@ const ShareImage =({title,selLifecycle,selCategory,selIndicator})=> {
   const [url,setUrl]= useState();
   useEffect(()=>{
     setUrl(`${window.location.origin}/dashboard/${selLifecycle}/${selCategory}/${selIndicator}`);
+<<<<<<< HEAD
+=======
+    // eslint-disable-next-line
+>>>>>>> a0f57d68ee7efd7480ae9f8e08792ed7b3a9810a
   },[])
   return (
     <div className="container"  >
