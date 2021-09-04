@@ -31,6 +31,8 @@ import early_childhood from './images/lifecycle/Early-Childhood.png'
 import school_age from './images/lifecycle/School-Age-.png'
 import iicon from "./images/i-con5.png";
 import { NotFound } from "../../NotFound";
+import waitUntil from "async-wait-until";
+
 
 
 export const Dropdown = () =>{
@@ -310,11 +312,11 @@ export const Dropdown = () =>{
           }
           let solr_url;
               // solr_url = await fetch(`${solr_domain}/solr/${solr_core}/select?fl=title:timeperiod%2Cvalue:timeperiod_id&sort=timeperiod_id%20desc&fq=lifecycle_id%3A${selLifeycle}%20OR%20lifecycle_id%3A7&fq=category_id%3A${selCategory}&fq=indicator_id%3A${val}&fq=subgroup_id%3A6&fq=area_id%3A${selArea}&q=*%3A*&group=true&group.field=timeperiod_id&group.limit=1&group.main=true&omitHeader=true`);
-              solr_url = await fetch(`${API}/api/v1/url_1d?selCategory=${selCategory}&selLifecycle=${selLifecycle}&area_id=${selArea}&selIndicator=${val}` , {
+              solr_url = await waitUntil(()=> fetch(`${API}/api/v1/url_1d?selCategory=${selCategory}&selLifecycle=${selLifecycle}&area_id=${selArea}&selIndicator=${val}` , {
                 headers:{
                   Authorization:`${token}`
                 }
-              })
+              }))
             const solr_body_1 = await solr_url.json()
             let flag = false;
             let timeValue = selTimeperiod;
@@ -425,11 +427,11 @@ export const Dropdown = () =>{
           let solr_url;
               // solr_url = await fetch(`${solr_domain}/solr/${solr_core}/select?fl=title:timeperiod%2Cvalue:timeperiod_id&sort=timeperiod_id%20desc&fq=lifecycle_id%3A${selLifeycle}%20OR%20lifecycle_id%3A7&fq=category_id%3A${selCategory}&fq=indicator_id%3A${selIndicator}&fq=subgroup_id%3A6&fq=area_id%3A${value}&q=*%3A*&group=true&group.field=timeperiod_id&group.limit=1&group.main=true&omitHeader=true`);
 
-            solr_url = await fetch(`${API}/api/v1/url_1d?selCategory=${selCategory}&selLifecycle=${selLifecycle}&area_id=${value}&selIndicator=${selIndicator}` , {
+            solr_url = await waitUntil (()=> fetch(`${API}/api/v1/url_1d?selCategory=${selCategory}&selLifecycle=${selLifecycle}&area_id=${value}&selIndicator=${selIndicator}` , {
               headers:{
                 Authorization:`${token}`
               }
-            })  
+            }))  
             let solr_body_1 = await solr_url.json()
             let flag = false;
             let timeValue = selTimeperiod;
